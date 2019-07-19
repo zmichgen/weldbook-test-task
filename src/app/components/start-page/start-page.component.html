@@ -1,3 +1,5 @@
 <div class="start-page">
-  <button mat-button>Показать таблицу</button>
+  <button mat-button (click)="toggleTableShow()">{{buttonText}}</button>
 </div>
+
+<app-table *ngIf="showTable"></app-table>
