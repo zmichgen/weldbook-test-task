@@ -1,6 +1,6 @@
 # Решение тестового задания
 
-[DEMO](https://zmichgen.github.io/weldbook-tets-task)
+[DEMO](https://zmichgen.github.io/weldbook-test-task)
 
 git clone https://github.com/zmichgen/weldbook-tets-task [your-project-name]
 
