@@ -2,7 +2,7 @@
 
 [DEMO](https://zmichgen.github.io/weldbook-test-task)
 
-git clone https://github.com/zmichgen/weldbook-tets-task [your-project-name]
+git clone https://github.com/zmichgen/weldbook-test-task [your-project-name]
 
 cd your-project-name
 
