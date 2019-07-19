@@ -9,21 +9,22 @@ import { MaterialModule } from './material/material.module';
 import { TableComponent } from './components/table/table.component';
 import { StartPageComponent } from './components/start-page/start-page.component';
 import { RxjstaskComponent } from './components/rxjstask/rxjstask.component';
+import { DataService } from './services/data.service';
 
 @NgModule({
   declarations: [
     AppComponent,
     TableComponent,
     StartPageComponent,
-    RxjstaskComponent
+    RxjstaskComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
-    MaterialModule
+    MaterialModule,
   ],
-  providers: [],
-  bootstrap: [AppComponent]
+  providers: [DataService],
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}
