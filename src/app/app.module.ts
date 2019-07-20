@@ -10,6 +10,8 @@ import { TableComponent } from './components/table/table.component';
 import { StartPageComponent } from './components/start-page/start-page.component';
 import { RxjstaskComponent } from './components/rxjstask/rxjstask.component';
 import { DataService } from './services/data.service';
+import { OverlayService } from './services/overlay.service';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -23,8 +25,10 @@ import { DataService } from './services/data.service';
     AppRoutingModule,
     BrowserAnimationsModule,
     MaterialModule,
+    FormsModule,
   ],
-  providers: [DataService],
+  providers: [DataService, OverlayService],
+  entryComponents: [TableComponent],
   bootstrap: [AppComponent],
 })
 export class AppModule {}
