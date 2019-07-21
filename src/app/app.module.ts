@@ -12,6 +12,7 @@ import { RxjstaskComponent } from './components/rxjstask/rxjstask.component';
 import { DataService } from './services/data.service';
 import { OverlayService } from './services/overlay.service';
 import { FormsModule } from '@angular/forms';
+import { FlowService } from './services/flow.service';
 
 @NgModule({
   declarations: [
@@ -27,7 +28,7 @@ import { FormsModule } from '@angular/forms';
     MaterialModule,
     FormsModule,
   ],
-  providers: [DataService, OverlayService],
+  providers: [DataService, OverlayService, FlowService],
   entryComponents: [TableComponent],
   bootstrap: [AppComponent],
 })

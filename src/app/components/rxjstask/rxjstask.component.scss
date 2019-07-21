@@ -2,7 +2,21 @@
   max-width: 95%;
   margin: 20px auto;
 
-  button {
-    box-shadow: 2px 2px 5px rgba(128, 128, 128, 0.541);
+  .header {
+    display: flex;
+    flex-direction: row;
+    max-width: 300px;
+    justify-content: space-between;
+
+    button {
+      box-shadow: 2px 2px 5px rgba(128, 128, 128, 0.541);
+    }
   }
+
+  .streams {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+  }
+
 }

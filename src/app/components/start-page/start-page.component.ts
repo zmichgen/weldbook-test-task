@@ -10,7 +10,7 @@ import { TablePreviewRef } from 'src/app/table-preview-ref';
 export class StartPageComponent {
   buttonText = 'Показать таблицу';
 
-  constructor(private overlayService: OverlayService) {}
+  constructor(private overlayService: OverlayService) { }
 
   showTable() {
     const dialogRef: TablePreviewRef = this.overlayService.open();

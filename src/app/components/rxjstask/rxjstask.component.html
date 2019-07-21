@@ -1,3 +1,27 @@
 <div class="flows-component">
-  <button mat-button>СТАРТ</button>
+  <div class="header">
+    <button mat-button (click)="start()">СТАРТ</button>
+    <p>СУММА: {{summ}}</p>
+  </div>
+  <div class="streams">
+    <div>
+      <p>Первый поток</p>
+      <ul *ngIf="stream1">
+        <li *ngFor="let item of stream1">{{item.id}}</li>
+      </ul>
+    </div>
+    <div>
+      <p>Второй поток</p>
+      <ul *ngIf="stream2">
+        <li *ngFor="let item of stream2">{{item.id}}</li>
+      </ul>
+    </div>
+    <div>
+      <p>Третий поток</p>
+      <ul *ngIf="stream3">
+        <li *ngFor="let item of stream3">{{item.id}}</li>
+      </ul>
+    </div>
+  </div>
+
 </div>
