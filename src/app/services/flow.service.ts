@@ -1,12 +1,6 @@
 import { Injectable } from '@angular/core';
-import {
-  Observable,
-  Subject,
-  BehaviorSubject,
-  interval,
-  Subscription,
-} from 'rxjs';
-import { debounceTime, delay, multicast, refCount } from 'rxjs/operators';
+import { Subject, BehaviorSubject, interval, Subscription } from 'rxjs';
+import { multicast, refCount } from 'rxjs/operators';
 
 export interface StreamObject {
   id: number;
@@ -17,12 +11,13 @@ export interface StreamObject {
   providedIn: 'root',
 })
 export class FlowService {
-  stream1: Subject<StreamObject> = new Subject<StreamObject>();
-  stream2: Subject<StreamObject> = new Subject<StreamObject>();
-  stream3: Subject<StreamObject> = new Subject<StreamObject>();
-  summ: BehaviorSubject<number> = new BehaviorSubject<number>(0);
+  stream1: Subject<StreamObject>;
+  stream2: Subject<StreamObject>;
+  stream3: Subject<StreamObject>;
+  summ: BehaviorSubject<number>;
   summa = 0;
-  subscriptions: Subscription = new Subscription();
+  subscriptions: Subscription;
+  timeOuts = [];
 
   constructor() {}
 
@@ -32,8 +27,18 @@ export class FlowService {
   }
 
   start() {
+    if (this.subscriptions) {
+      this.subscriptions.unsubscribe();
+    }
+    this.clearTimeouts();
     const sub2 = new Subject();
     const sub3 = new Subject();
+    this.stream1 = new Subject();
+    this.stream2 = new Subject();
+    this.stream3 = new Subject();
+    this.summ = new BehaviorSubject<number>(0);
+    this.summa = 0;
+    this.subscriptions = new Subscription();
 
     const refCounted2 = interval(1500).pipe(
       multicast(sub2),
@@ -55,26 +60,45 @@ export class FlowService {
     this.subscriptions.add(refCounted2.subscribe((v) => v));
     this.subscriptions.add(refCounted3.subscribe((v) => v));
 
-    setTimeout(() => {
-      this.subscriptions.add(
-        refCounted2.subscribe((i: number) => {
-          this.stream2.next({ id: i + 1, stream: 2 });
-          this.addToSumma(i + 1);
-        }),
-      );
-    }, 10000);
+    this.timeOuts.push(
+      setTimeout(() => {
+        this.subscriptions.add(
+          refCounted2.subscribe((i: number) => {
+            this.stream2.next({ id: i + 1, stream: 2 });
+            this.addToSumma(i + 1);
+          }),
+        );
+      }, 10000),
+    );
 
-    setTimeout(() => {
-      this.subscriptions.add(
-        refCounted3.subscribe((i: number) => {
-          this.stream3.next({ id: i + 1, stream: 3 });
-          this.addToSumma(i + 1);
-        }),
-      );
-    }, 20000);
+    this.timeOuts.push(
+      setTimeout(() => {
+        this.subscriptions.add(
+          refCounted3.subscribe((i: number) => {
+            this.stream3.next({ id: i + 1, stream: 3 });
+            this.addToSumma(i + 1);
+          }),
+        );
+      }, 20000),
+    );
 
-    setTimeout(() => {
+    this.timeOuts.push(
+      setTimeout(() => {
+        this.subscriptions.unsubscribe();
+      }, 30000),
+    );
+  }
+
+  clearTimeouts() {
+    this.timeOuts.forEach((timer) => {
+      clearTimeout(timer);
+    });
+  }
+
+  stop() {
+    if (this.subscriptions) {
       this.subscriptions.unsubscribe();
-    }, 30000);
+    }
+    this.clearTimeouts();
   }
 }

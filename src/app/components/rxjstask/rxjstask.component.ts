@@ -15,7 +15,14 @@ export class RxjstaskComponent implements OnInit, OnDestroy {
   subscriptions: Subscription = new Subscription();
   constructor(private flowService: FlowService) {}
 
-  ngOnInit() {
+  ngOnInit() {}
+
+  start() {
+    this.stream1 = [];
+    this.stream2 = [];
+    this.stream3 = [];
+    this.summ = 0;
+    this.flowService.start();
     this.subscriptions.add(
       this.flowService.stream1.subscribe((obj) => this.stream1.push(obj)),
     );
@@ -30,11 +37,8 @@ export class RxjstaskComponent implements OnInit, OnDestroy {
     );
   }
 
-  start() {
-    this.flowService.start();
-  }
-
   ngOnDestroy(): void {
     this.subscriptions.unsubscribe();
+    this.flowService.stop();
   }
 }
