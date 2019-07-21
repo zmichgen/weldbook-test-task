@@ -21,13 +21,12 @@ export class OverlayService {
     const positionStrategy = this.overlay
       .position()
       .global()
-      .centerHorizontally()
-      .centerVertically();
+      .centerHorizontally();
 
     const overlayConfig = new OverlayConfig({
       hasBackdrop: true,
       backdropClass: 'dark-backdrop',
-      scrollStrategy: this.overlay.scrollStrategies.block(),
+      scrollStrategy: this.overlay.scrollStrategies.reposition(),
       positionStrategy,
     });
     return overlayConfig;
