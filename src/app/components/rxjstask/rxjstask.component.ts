@@ -9,36 +9,50 @@ import { Subscription } from 'rxjs';
 })
 export class RxjstaskComponent implements OnInit, OnDestroy {
   summ = 0;
-  stream1: StreamObject[] = [];
-  stream2: StreamObject[] = [];
-  stream3: StreamObject[] = [];
+  stream1: StreamObject[];
+  stream2: StreamObject[];
+  stream3: StreamObject[];
   subscriptions: Subscription = new Subscription();
   constructor(private flowService: FlowService) {}
 
   ngOnInit() {}
 
   start() {
+    const duration = 30000;
+    if (this.subscriptions) {
+      this.subscriptions.unsubscribe();
+    }
+    this.subscriptions = new Subscription();
     this.stream1 = [];
     this.stream2 = [];
     this.stream3 = [];
     this.summ = 0;
-    this.flowService.start();
     this.subscriptions.add(
-      this.flowService.stream1.subscribe((obj) => this.stream1.push(obj)),
-    );
-    this.subscriptions.add(
-      this.flowService.stream2.subscribe((obj) => this.stream2.push(obj)),
-    );
-    this.subscriptions.add(
-      this.flowService.stream3.subscribe((obj) => this.stream3.push(obj)),
-    );
-    this.subscriptions.add(
-      this.flowService.summ.subscribe((summa) => (this.summ = summa)),
+      this.flowService.mainStream(duration).subscribe((data) => {
+        this.getData(data);
+      }),
     );
   }
 
+  getData(data) {
+    this.summ += data.id;
+    switch (data.stream) {
+      case 1: {
+        this.stream1.push(data);
+        break;
+      }
+      case 2: {
+        this.stream2.push(data);
+        break;
+      }
+      case 3: {
+        this.stream3.push(data);
+        break;
+      }
+    }
+  }
+
   ngOnDestroy(): void {
-    this.subscriptions.unsubscribe();
     this.flowService.stop();
   }
 }
