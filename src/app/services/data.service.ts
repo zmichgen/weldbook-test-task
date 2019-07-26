@@ -8,9 +8,7 @@ export interface PeriodicElement {
   symbol: string;
 }
 
-@Injectable({
-  providedIn: 'root',
-})
+@Injectable()
 export class DataService {
   ELEMENT_DATA: PeriodicElement[] = [
     { position: 1, name: 'Hydrogen', weight: 1.0079, symbol: 'H' },

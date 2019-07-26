@@ -9,10 +9,7 @@ import { MaterialModule } from './material/material.module';
 import { TableComponent } from './components/table/table.component';
 import { StartPageComponent } from './components/start-page/start-page.component';
 import { RxjstaskComponent } from './components/rxjstask/rxjstask.component';
-import { DataService } from './services/data.service';
-import { OverlayService } from './services/overlay.service';
 import { FormsModule } from '@angular/forms';
-import { FlowService } from './services/flow.service';
 
 @NgModule({
   declarations: [
@@ -28,7 +25,7 @@ import { FlowService } from './services/flow.service';
     MaterialModule,
     FormsModule,
   ],
-  providers: [DataService, OverlayService, FlowService],
+
   entryComponents: [TableComponent],
   bootstrap: [AppComponent],
 })

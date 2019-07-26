@@ -6,6 +6,7 @@ import { Subscription } from 'rxjs';
   selector: 'app-rxjstask',
   templateUrl: './rxjstask.component.html',
   styleUrls: ['./rxjstask.component.scss'],
+  providers: [FlowService],
 })
 export class RxjstaskComponent implements OnInit, OnDestroy {
   summ = 0;

@@ -11,15 +11,7 @@ export class AppComponent {
 
   constructor(private router: Router) {}
 
-  navigateToTask1() {
-    this.router.navigate(['task1']);
-  }
-
-  navigateToTask2() {
-    this.router.navigate(['task2']);
-  }
-
-  navigateToTask3() {
-    this.router.navigate(['task3']);
+  navigateToTask(taskNum: string) {
+    this.router.navigate([`task${taskNum}`]);
   }
 }

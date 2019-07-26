@@ -1,18 +1,16 @@
 import { Injectable } from '@angular/core';
-import { interval, Subscription, merge, timer } from 'rxjs';
+import { interval, Subscription, merge, timer, Observable } from 'rxjs';
 import { map, filter, takeUntil } from 'rxjs/operators';
 export interface StreamObject {
   id: number;
   stream: number;
 }
 
-@Injectable({
-  providedIn: 'root',
-})
+@Injectable()
 export class FlowService {
   streams: Subscription = new Subscription();
 
-  stop() {
+  stop(): void {
     if (this.streams) {
       this.streams.unsubscribe();
     }
@@ -23,7 +21,7 @@ export class FlowService {
     period: number,
     startToSubscribe: number,
     duration: number,
-  ) {
+  ): Observable<StreamObject> {
     return interval(period).pipe(
       map((value) => ({ id: value + 1, stream: streamNumber })),
       filter((val) => val.id * period > startToSubscribe),
@@ -31,7 +29,7 @@ export class FlowService {
     );
   }
 
-  mainStream(duration: number) {
+  mainStream(duration: number): Observable<StreamObject> {
     if (this.streams) {
       this.streams.unsubscribe();
     }
